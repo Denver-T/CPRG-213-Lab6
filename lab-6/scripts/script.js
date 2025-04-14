@@ -10,9 +10,9 @@ You are encouraged to use the provided naming convention for ease of review.
 /* create variables to hold the values for modelName and duration */
 
 // INSERT YOUR CODE HERE
-let modelName = 1
-let duration = 1
 
+let modelName = "XYZ"
+let duration = 1
 
 /****************** helper function ******************/
 /* create a function called recalculate() which will
@@ -26,10 +26,17 @@ let duration = 1
 
 // INSERT YOUR CODE HERE
 
-
-
-
-
+function recalculate() {
+    let costLabel = document.getElementById("calculated-cost");
+    let newTotalCost;
+    if (modelName === "XYZ") {
+        newTotalCost = duration * 100;
+    }
+    else if (modelName === "CPRG") {
+        newTotalCost = duration * 213;
+    }
+    costLabel.innerHTML = newTotalCost;
+}
 
 /****************** model button logic ******************/
 
@@ -41,15 +48,26 @@ let duration = 1
     - if modelName is currently "CPRG", change the value of modelName to "XYZ", and change the innerHTML of the model-text span element to "Model XYZ"
     - then, recalculate() the total cost.
 - finally, uncomment the following line of JavaScript to have this function run automatically whenever the pseudo-button is clicked: */
-    // modelButton.addEventListener("click", changeModel);
 
 // INSERT YOUR CODE HERE
 
+let modelButton = document.getElementById("model-button");
 
+function changeModel() {
+    let modelText = document.getElementById("model-text");
 
+    if (modelName === "XYZ") {
+        modelName = "CPRG";
+        modelText.innerHTML = "Model CPRG";
+    }
+    else if (modelName === "CPRG") {
+        modelName = "XYZ";
+        modelText.innerHTML = "Model XYZ"
+    }
+    recalculate();
+}
 
-
-
+modelButton.addEventListener("click", changeModel);
 
 /****************** duration button logic ******************/
 /*  - first, create a variable to represent the "Change Duration" pseudo-button.
@@ -64,5 +82,21 @@ let duration = 1
 
 // INSERT YOUR CODE HERE
 
+let durationButton = document.getElementById("duration-button");
 
+function changeDuration() {
+    let durationText = document.getElementById("duration-text");
+    let durationLength = Number(prompt("Enter the duration in days:"));
 
+    if (isNaN(durationLength) || durationLength <= 0) {
+        alert("Please enter a valid duration");
+        return;
+    }
+
+    duration = durationLength;
+    durationText.innerHTML = duration;
+
+    recalculate();
+}
+
+durationButton.addEventListener("click", changeDuration);
